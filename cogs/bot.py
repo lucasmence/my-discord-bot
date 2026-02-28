@@ -9,9 +9,12 @@ import requests
 
 FOLDER_DOWNLOADS = "./downloads"
 token = os.getenv('DISCORD_TOKEN')
-prefix = os.getenv('PREFIX')  
-userId = os.getenv('USER_ID')
-cooldownMediaCommand = os.getenv('COOLDOWN_MEDIA')  
+prefix = os.getenv('PREFIX')
+cooldownMediaCommand = os.getenv('COOLDOWN_MEDIA')
+limitFilesizeMb = os.getenv('LIMIT_FILESIZE_MB')
+diskClearMinutes = os.getenv('DISK_CLEAR_MINUTES')
+
+userId = ''
 
 shared_cooldown = commands.CooldownMapping.from_cooldown(1, cooldownMediaCommand, commands.BucketType.default)
 
@@ -22,7 +25,7 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
-@tasks.loop(minutes=5.0)
+@tasks.loop(minutes=diskClearMinutes)
 async def clearDisk():
     botPlaying = False
     for vc in bot.voice_clients:
@@ -50,6 +53,9 @@ async def on_ready():
 
 @bot.check
 async def verify_present_user(ctx):
+    if userId == '':
+        return True
+
     discordUser = ctx.guild.get_member(userId)  
     if discordUser is None:
         return False  

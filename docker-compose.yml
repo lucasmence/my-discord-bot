@@ -1,13 +1,14 @@
 services:
   discord-bot:
     build: .
-    container_name: discord-bot
+    container_name: mega-bot
     restart: unless-stopped
     environment:
       - DISCORD_TOKEN=
-      - USER_ID=
       - PREFIX=-
       - COOLDOWN_MEDIA=60
+      - LIMIT_FILESIZE_MB=200
+      - DISK_CLEAR_MINUTES=5
     logging:
       driver: "json-file"
       options:

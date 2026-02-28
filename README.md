@@ -4,16 +4,13 @@ My personal discord bot for a friend private server.
 # Install
 Clone this repository:
 
-```git clone https://github.com/lucasmence/my-discord-bot```
+```git clone https://github.com/lucasmence/mega-bot```
 
 Insert the DISCORD_TOKEN in **docker-compose.yml** file:
 
 ``` 
 environment:
       - DISCORD_TOKEN=<YOUR_DISCORD_TOKEN_HERE>
-      - USER_ID=<YOUR_DISCORD_USER_ID (opcional)> 
-      - PREFIX=!
-      - COOLDOWN_MEDIA=60
 ```
 
 Let the docker set it up:
